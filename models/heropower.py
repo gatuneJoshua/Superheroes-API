@@ -4,7 +4,7 @@ from traitlets import validate
 from enum import Enum
 
 class HeroPower(db.Model):
-    __tablename__="hero_power"
+   
     id = db.Column(db.Integer, primary_key=True)
     hero_id = db.Column(db.Integer, db.ForeignKey('hero.id'), nullable=False)
     power_id = db.Column(db.Integer, db.ForeignKey('power.id'), nullable=False)
