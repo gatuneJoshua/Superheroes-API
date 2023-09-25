@@ -4,10 +4,11 @@
 from flask import Flask, jsonify, make_response, request
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from hero import Hero
-from heropower import HeroPower
-from models import  db
-from power import Power
+from models.hero import Hero
+from models.heropower import HeroPower
+#from models import  db
+from models.power import Power
+from models.config import db
 
 
 app = Flask(__name__)
@@ -17,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 migrate = Migrate(app, db)
 db.init_app(app)
 
-@app.route('/', methods=['GET'])
+@app.route('/heroes', methods=['GET'])
 def heroes():
     heroes = []
     for hero in Hero.query.all():
@@ -26,7 +27,7 @@ def heroes():
              "super_name": hero.super_name,
               
         }
-    heroes.append(hero_dict)
+         heroes.append(hero_dict)
     
     response = make_response(
         jsonify(heroes),
@@ -34,16 +35,17 @@ def heroes():
     )        
     return response
 
-@app.route('/', methods=['GET'])
+@app.route('/powers', methods=['GET'])
 def powers():
+   pws=[]
    for power in Power.query.all():
        power_dict = {
            "name": power.name, "description": power.description
 
        }
-   powers.append(power_dict)
+       pws.append(power_dict)
    response = make_response(
-        jsonify(heroes),
+        jsonify(pws),
         200
     )        
    return response   
@@ -62,10 +64,17 @@ def add_heropower() :
 
        
 
-#@app.route('/', methods = ['PATCH'])
-#def update_power(id) :
-# power = Power.query.get(id)
-# data = request.get_json() 
+@app.route('/powers/<int:id>', methods = ['PATCH'])
+def update_power(id) :
+ power = Power.query.get(id)
+ try:
+  data = request.get_json() 
+  power.description = data["description"]
+  db.session.commit()
+  return jsonify({"msg": "succesfull"})
+ except Exception as e:
+    db.session.rollback() 
+    return jsonify({"errors": "validation errors"})
 
 
 
