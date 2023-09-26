@@ -1,8 +1,9 @@
 import sys
 import os
+from urllib.response import addinfo
 # Adjust the path to the parent directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from app import app
+from app import app, heroes, powers
 from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
 from models.power import Power
@@ -53,7 +54,7 @@ with app.app_context():
  db.session.commit()
  print("🦸‍♀️ Seeding heroes complete!")
 
-# Adding powers to heroes
+#  addinfo powers to heroes
 #  print("🦸‍♀️ Adding powers to heroes...")
 #  strengths = ["Strong", "Weak", "Average"]
 
@@ -63,5 +64,5 @@ with app.app_context():
 #         hero_power = HeroPower(hero_id=hero.id, power_id=power.id, strength=choice(strengths))
 #         db.session.add(hero_power)
 
-#  db.session.commit()
-#  print("🦸‍♀️ Done seeding!")
+ db.session.commit()
+ print("🦸‍♀️ Done seeding!")

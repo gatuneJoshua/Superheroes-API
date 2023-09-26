@@ -1,7 +1,7 @@
 #from app import db
 from flask_sqlalchemy import SQLAlchemy
 from traitlets import validate
-from enum import Enum
+# from enum import Enum
 from models.config import db
 class HeroPower(db.Model):
    
@@ -12,9 +12,9 @@ class HeroPower(db.Model):
    # power = db.relationship('Power', back_populates='hero_powers')
     strength = db.Column(db.String(200), nullable=False,)
 
-# We define an Enum class StrengthEnum to represent the possible values for the strength field. This ensures that strength can only have one of the predefined values: 'Strong', 'Weak', or 'Average'.
-class StrengthEnum(Enum):
-    STRONG = 'Strong'
-    WEAK = 'Weak'
-    AVERAGE = 'Average'
+# # We define an Enum class StrengthEnum to represent the possible values for the strength field. This ensures that strength can only have one of the predefined values: 'Strong', 'Weak', or 'Average'.
+# class StrengthEnum(Enum):
+#     STRONG = 'Strong'
+#     WEAK = 'Weak'
+#     AVERAGE = 'Average'
         
